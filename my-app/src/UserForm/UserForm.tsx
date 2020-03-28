@@ -26,7 +26,22 @@ export default class UserForm extends React.Component<IUserProps, IUserState> {
     }
 
     handleSubmit(event: FormEvent<HTMLFormElement>) {
-        console.log(axios.get('https://localhost:5001/api/User'));
+        const jwt = localStorage.getItem('jwt');
+        const config = {
+            headers: { Authorization: `Bearer ${jwt}` },
+        };
+        console.log(jwt);
+        axios
+            .get('https://localhost:5001/api/User', config)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {});
+
+        event.preventDefault();
     }
 
     public render() {
