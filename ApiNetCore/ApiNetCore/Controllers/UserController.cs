@@ -34,7 +34,7 @@ namespace ApiNetCore.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            return  Ok(_userService.GetAll());
+            return Ok(_userService.GetAll());
         }
     }
 }
