@@ -60,12 +60,14 @@ namespace ApiNetCore
                 app.UseDeveloperExceptionPage();
             }
 
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
 
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
