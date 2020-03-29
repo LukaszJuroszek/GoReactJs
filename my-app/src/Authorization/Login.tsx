@@ -18,13 +18,13 @@ export default class Login extends React.Component<ILoginProps> {
                 <div className="form-group">
                     <label>
                         UserName:
-                        <input type="text" onChange={this.props.onUserNameChange} />
+                        <input type="text" data-testid="userNameInput" onChange={this.props.onUserNameChange} />
                     </label>
                     <label>
                         Password:
-                        <input type="password" onChange={this.props.onPasswordChange} />
+                        <input type="password" data-testid="passwordInput" onChange={this.props.onPasswordChange} />
                     </label>
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" data-testid="loginButton" className="btn btn-primary">
                         Login
                     </button>
                 </div>

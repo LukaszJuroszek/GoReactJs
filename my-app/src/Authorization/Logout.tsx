@@ -13,7 +13,7 @@ export default class Logout extends React.Component<ILogoutProps> {
         return (
             <form onSubmit={this.props.onSubmit}>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" data-testid="logoutButton" className="btn btn-primary">
                         Logout
                     </button>
                 </div>

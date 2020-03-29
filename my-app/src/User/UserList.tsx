@@ -33,11 +33,14 @@ export default class UserList extends Component<{}, IUserListState> {
     render() {
         const users = this.state.users;
         return (
-            <div>
-                <button onClick={this.refresh}>Refresh</button>
+            <div data-testid="userList">
+                <button onClick={this.refresh} data-testid="refreshButton">
+                    Refresh
+                </button>
                 {users.map((item, key) => (
-                    <div key={key.toString()}>
-                        {item.id} {item.userName}
+                    <div data-testid="user" key={key.toString()}>
+                        <span data-testid="userId">{item.id}</span>
+                        <span data-testid="userName">{item.userName}</span>
                     </div>
                 ))}
             </div>
