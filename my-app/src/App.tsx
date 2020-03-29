@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component, FormEvent } from 'react';
 import './App.css';
 import Authorization from './Authorization/Authorization';
+import UserList from './User/UserList';
 
 export default class App extends Component {
     render() {
@@ -10,6 +11,9 @@ export default class App extends Component {
                 <header className="App-header">
                     <Authorization />
                 </header>
+                <div>
+                    <UserList />
+                </div>
             </div>
         );
     }

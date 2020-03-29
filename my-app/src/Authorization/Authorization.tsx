@@ -4,7 +4,7 @@ import Login from './Login';
 import React from 'react';
 import Logout from './Logout';
 
-interface IUserResponse {
+export interface IUserResponse {
     id: number;
     firstName: string;
     lastName: string;
@@ -49,13 +49,13 @@ export default class Authorization extends Component<IAuthorizationProps, IAutho
             })
             .finally(() => {
                 this.setState({ userName: '', password: '' });
+                this.forceUpdate();
             });
         event.preventDefault();
     }
 
     onUserNameChange(event: ChangeEvent<HTMLInputElement>) {
         this.setState({ userName: event.target.value });
-        console.log(this.state);
     }
 
     onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
