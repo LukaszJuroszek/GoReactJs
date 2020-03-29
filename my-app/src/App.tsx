@@ -1,18 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
+import React, { Component, FormEvent } from 'react';
 import './App.css';
-import UserForm from './UserForm/UserForm';
 import Authorization from './Authorization/Authorization';
 
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <Authorization />
-                <UserForm />
-            </header>
-        </div>
-    );
+export default class App extends Component {
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <Authorization />
+                </header>
+            </div>
+        );
+    }
 }
-
-export default App;

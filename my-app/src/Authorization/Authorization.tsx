@@ -1,5 +1,8 @@
-import React, { FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
+import { FormEvent, Component, ChangeEvent } from 'react';
+import Login from './Login';
+import React from 'react';
+import Logout from './Logout';
 
 interface IUserResponse {
     id: number;
@@ -10,39 +13,28 @@ interface IUserResponse {
     token: string;
 }
 
-interface IAuthorizationState {
+interface IAuthorizationProps {
+    // onSubmit(event: FormEvent<HTMLFormElement>): void;
+    // userName: string;
+    // password: string;
+}
+
+interface IAuthorizedState {
     userName: string;
     password: string;
 }
 
-interface IAuthorizationProps {}
-
-export default class Authorization extends React.Component<IAuthorizationProps, IAuthorizationState> {
+export default class Authorization extends Component<IAuthorizationProps, IAuthorizedState> {
     constructor(props: IAuthorizationProps) {
         super(props);
         this.state = { userName: '', password: '' };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
         this.onUserNameChange = this.onUserNameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
-        this.onLogOut = this.onLogOut.bind(this);
-    }
-
-    onUserNameChange(event: ChangeEvent<HTMLInputElement>) {
-        this.setState({ userName: event.target.value });
-    }
-
-    onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
-        this.setState({ password: event.target.value });
-    }
-
-    onLogOut(event: React.MouseEvent<HTMLElement>) {
-        localStorage.setItem('jwt', '');
-        console.log('logout');
-        this.forceUpdate();
     }
 
     handleSubmit(event: FormEvent<HTMLFormElement>) {
-        console.log();
+        console.log(this.state);
         axios
             .post<IUserResponse>('https://localhost:5001/api/User', {
                 UserName: this.state.userName,
@@ -56,37 +48,38 @@ export default class Authorization extends React.Component<IAuthorizationProps, 
                 console.log(error);
             })
             .finally(() => {
-                this.state = { userName: '', password: '' };
+                this.setState({ userName: '', password: '' });
             });
         event.preventDefault();
     }
 
-    public render() {
+    onUserNameChange(event: ChangeEvent<HTMLInputElement>) {
+        this.setState({ userName: event.target.value });
+        console.log(this.state);
+    }
+
+    onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
+        this.setState({ password: event.target.value });
+    }
+
+    handleLogout(event: FormEvent<HTMLFormElement>) {
+        localStorage.setItem('jwt', '');
+        console.log('logout');
+        this.forceUpdate();
+    }
+
+    render() {
         var jwt = localStorage.getItem('jwt');
-        if (jwt == null || jwt == '') {
+        if (jwt === null || jwt === '') {
             return (
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>
-                            UserName:
-                            <input type="text" onChange={this.onUserNameChange} />
-                        </label>
-                        <label>
-                            Password:
-                            <input type="password" onChange={this.onPasswordChange} />
-                        </label>
-                        <button type="submit" className="btn btn-primary">
-                            Login
-                        </button>
-                    </div>
-                </form>
+                <Login
+                    onSubmit={this.handleSubmit.bind(this)}
+                    onPasswordChange={this.onPasswordChange.bind(this)}
+                    onUserNameChange={this.onUserNameChange.bind(this)}
+                ></Login>
             );
         } else {
-            return (
-                <button type="button" className="btn btn-primary" onClick={this.onLogOut}>
-                    LogOut
-                </button>
-            );
+            return <Logout onSubmit={this.handleLogout.bind(this)} />;
         }
     }
 }
