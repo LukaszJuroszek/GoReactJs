@@ -17,8 +17,8 @@ namespace ApiNetCore.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
         [AllowAnonymous]
+        [HttpPost, Route("Login")]
         public ActionResult<User> Authenticate(User user)
         {
             var authUser = _userService.Authenticate(user.UserName, user.Password);
@@ -35,6 +35,18 @@ namespace ApiNetCore.Controllers
         public ActionResult GetAll()
         {
             return Ok(_userService.GetAll());
+        }
+
+        [AllowAnonymous]
+        [HttpPost, Route("Register")]
+        public ActionResult<User> Register(User user)
+        {
+            if (_userService.Register(user))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }

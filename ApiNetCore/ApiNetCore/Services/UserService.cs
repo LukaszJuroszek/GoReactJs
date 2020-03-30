@@ -64,5 +64,14 @@ namespace ApiNetCore.Services
                 return x;
             });
         }
+
+        public bool Register(User user)
+        {
+            //validate
+
+            _users.Add(user);
+
+            return true;
+        }
     }
 }

@@ -36,7 +36,7 @@ export default class Authorization extends Component<IAuthorizationProps, IAutho
     handleSubmit(event: FormEvent<HTMLFormElement>) {
         console.log(this.state);
         axios
-            .post<IUserResponse>('https://localhost:5001/api/User', {
+            .post<IUserResponse>('https://localhost:5001/api/User/Login', {
                 UserName: this.state.userName,
                 Password: this.state.password,
             })

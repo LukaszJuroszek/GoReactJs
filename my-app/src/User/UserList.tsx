@@ -11,9 +11,10 @@ export default class UserList extends Component<{}, IUserListState> {
         super(props);
         this.state = { users: [] };
         this.refresh = this.refresh.bind(this);
+        this.refreshUser();
     }
 
-    refresh(event: React.MouseEvent<HTMLButtonElement>) {
+    refreshUser() {
         const jwt = localStorage.getItem('jwt');
         const config = {
             headers: { Authorization: `Bearer ${jwt}` },
@@ -30,11 +31,15 @@ export default class UserList extends Component<{}, IUserListState> {
             });
     }
 
+    refresh(event: React.MouseEvent<HTMLButtonElement>) {
+        this.refreshUser();
+    }
+
     render() {
         const users = this.state.users;
         return (
             <div data-testid="userList">
-                <button onClick={this.refresh} data-testid="refreshButton">
+                <button className="btn btn-primary" onClick={this.refresh} data-testid="refreshButton">
                     Refresh
                 </button>
                 {users.map((item, key) => (
