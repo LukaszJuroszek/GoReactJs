@@ -1,21 +1,8 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+Feature: The Login
 
-// describe('Log In', () => {
-//     it('succesfully performs login action', () => {
-//         cy.visit('/');
-//         cy.contains('Pleas login first');
-//         cy.get('input[data-testid="userNameInput"]').type('test');
-//         cy.get('input[data-testid="passwordInput"]').type('test');
-//         cy.get('button[data-testid="loginButton"]').click();
-//         cy.get('button[data-testid="logoutButton"]').should('be.visible');
-//     });
-//     it('succesfully performs login and logout action', () => {
-//         cy.visit('/');
-//         cy.contains('Pleas login first');
-//         cy.get('input[data-testid="userNameInput"]').type('test');
-//         cy.get('input[data-testid="passwordInput"]').type('test');
-//         cy.get('button[data-testid="loginButton"]').click();
-//         cy.get('button[data-testid="logoutButton"]').click();
-//         cy.contains('Pleas login first');
-//     });
-// });
+  I want to open a social network page
+  
+  @focus
+  Scenario: Opening a social network page
+    Given I open Login page
+    Then I see "Login" in the title
