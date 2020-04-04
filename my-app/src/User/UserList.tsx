@@ -35,7 +35,7 @@ export default class UserList extends Component<{}, IUserListState> {
         this.refreshUser();
     }
 
-    render() {
+    public render() {
         const users = this.state.users;
         return (
             <div data-testid="userList">

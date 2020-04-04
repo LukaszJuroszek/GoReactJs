@@ -68,7 +68,7 @@ export default class Authorization extends Component<IAuthorizationProps, IAutho
         this.forceUpdate();
     }
 
-    render() {
+    public render() {
         var jwt = localStorage.getItem('jwt');
         if (jwt === null || jwt === '') {
             return (
