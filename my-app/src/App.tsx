@@ -15,9 +15,15 @@ export default class App extends Component {
             <Router>
                 <div className="App">
                     <header className="App-header">
-                        <NavLink to="/Login">Login</NavLink>
-                        <NavLink to="/UserRegister">Register user</NavLink>
-                        <NavLink to="/UserList">User List</NavLink>
+                        <NavLink data-testid="loginLink" to="/Login">
+                            Login
+                        </NavLink>
+                        <NavLink data-testid="rserRegisterLink" to="/UserRegister">
+                            Register user
+                        </NavLink>
+                        <NavLink data-testid="userListLink" to="/UserList">
+                            User List
+                        </NavLink>
                     </header>
                     <Route path="/Login" component={Authorization} />
                     <Route path="/UserList" component={UserList} />

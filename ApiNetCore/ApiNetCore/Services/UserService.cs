@@ -12,22 +12,24 @@ namespace ApiNetCore.Services
 {
     public class UserService : IUserService
     {
-        private List<User> _users = new List<User>
-        {
-            new User { Id = 1, FirstName = "Test", LastName = "User", UserName = "test", Password = "test" },
-            new User { Id = 1, FirstName = "Test1", LastName = "User", UserName = "test1", Password = "test1" }
-        };
-
         private readonly AppSettings _appSettings;
+        private readonly UserDbContext _dbContext;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IOptions<AppSettings> appSettings, UserDbContext dbContext)
         {
+            _dbContext = dbContext;
+            if (_dbContext.Users.Any() == false)
+            {
+                _dbContext.Users.Add(new User { Id = 1, FirstName = "Test", LastName = "User", UserName = "test", Password = "test" });
+                _dbContext.Users.Add(new User { Id = 2, FirstName = "Test1", LastName = "User1", UserName = "test1", Password = "test" });
+                _dbContext.SaveChanges();
+            }
             _appSettings = appSettings.Value;
         }
 
         public User Authenticate(string username, string password)
         {
-            var user = _users.SingleOrDefault(x => x.UserName == username && x.Password == password);
+            var user = _dbContext.Users.SingleOrDefault(x => x.UserName == username && x.Password == password);
 
             // return null if user not found
             if (user == null)
@@ -58,7 +60,7 @@ namespace ApiNetCore.Services
         public IEnumerable<User> GetAll()
         {
             // return users without passwords
-            return _users.Select(x =>
+            return _dbContext.Users.AsParallel().Select(x =>
             {
                 x.Password = null;
                 return x;
@@ -69,7 +71,8 @@ namespace ApiNetCore.Services
         {
             //validate
 
-            _users.Add(user);
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
 
             return true;
         }
